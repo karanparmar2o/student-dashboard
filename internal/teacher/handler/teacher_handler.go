@@ -46,7 +46,7 @@ func (h *TeacherHandler) UpdateTeacher(ctx context.Context, req *teacherpb.Updat
 		ClassSections: req.GetClassSections(),
 	}
 
-	_, err := h.service.UpdateTeacher(ctx, teacher)
+	_, err := h.service.UpdateTeacher(ctx, req.Id, teacher)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (h *TeacherHandler) ListTeachers(ctx context.Context, req *teacherpb.GetTea
 
 // Get teacher by name
 func (h *TeacherHandler) GetTeacherByName(ctx context.Context, req *teacherpb.GetTeacherByIdRequest) (*teacherpb.GetTeacherByIdResponse, error) {
-	t, err := h.service.GetTeacherByName(ctx, req.ID)
+	t, err := h.service.GetTeacherByID(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
