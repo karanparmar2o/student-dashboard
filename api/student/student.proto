@@ -1,0 +1,54 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+
+package student;
+
+option go_package = "github.com/karanparmar2o/student-dashboard/api/student";
+
+service StudentService {
+    rpc RegisterStudent(RegisterStudentRequest) returns (RegisterStudentResponse) {
+        option (google.api.http) = {
+            post: "/v1/students"
+            body: "*"
+        };
+    }
+
+    rpc GetStudentList(GetStudentListRequest) returns (GetStudentListResponse) {
+        option (google.api.http) = {
+            get: "/v1/students"
+        };
+    }
+}
+
+message RegisterStudentRequest {
+    string name = 1;
+    int32 age = 2;
+    string rollNumber = 3;
+    string class = 4;
+    string section = 5;
+    string parentName = 6;
+    string parentPhone = 7;
+    string admissionDate = 8;
+    string gender = 9;
+    string address = 10;
+}
+message RegisterStudentResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetStudentListRequest {
+    string class = 1;
+}
+
+message GetStudentListResponse {
+    repeated Student students = 1;
+}
+
+message Student {
+    string name = 1;
+    int32 age = 2;
+    int32 class = 3;
+    string section = 4;
+    string roll_no = 5;
+}

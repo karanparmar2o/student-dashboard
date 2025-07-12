@@ -1,0 +1,92 @@
+.
+├── api
+│   ├── student
+│   │   ├── student_grpc.pb.go
+│   │   ├── student.pb.go
+│   │   ├── student.pb.gw.go
+│   │   └── student.proto
+│   └── teacher
+│       ├── teacher_grpc.pb.go
+│       ├── teacher.pb.go
+│       ├── teacher.pb.gw.go
+│       └── teacher.proto
+├── a.txt
+├── cmd
+│   └── server
+│       └── main.go
+├── go.mod
+├── googleapis
+│   ├── api-index-v1.json
+│   ├── BUILD.bazel
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── gapic
+│   │   └── metadata
+│   ├── generator-versions.json
+│   ├── google
+│   │   ├── actions
+│   │   ├── ads
+│   │   ├── ai
+│   │   ├── analytics
+│   │   ├── api
+│   │   ├── appengine
+│   │   ├── apps
+│   │   ├── area120
+│   │   ├── assistant
+│   │   ├── bigtable
+│   │   ├── BUILD.bazel
+│   │   ├── bytestream
+│   │   ├── chat
+│   │   ├── chromeos
+│   │   ├── cloud
+│   │   ├── compute
+│   │   ├── container
+│   │   ├── dataflow
+│   │   ├── datastore
+│   │   ├── devtools
+│   │   ├── example
+│   │   ├── firebase
+│   │   ├── firestore
+│   │   ├── genomics
+│   │   ├── geo
+│   │   ├── home
+│   │   ├── iam
+│   │   ├── identity
+│   │   ├── logging
+│   │   ├── longrunning
+│   │   ├── maps
+│   │   ├── marketingplatform
+│   │   ├── monitoring
+│   │   ├── networking
+│   │   ├── partner
+│   │   ├── privacy
+│   │   ├── pubsub
+│   │   ├── rpc
+│   │   ├── search
+│   │   ├── security
+│   │   ├── shopping
+│   │   ├── spanner
+│   │   ├── storage
+│   │   ├── storagetransfer
+│   │   ├── streetview
+│   │   ├── type
+│   │   └── watcher
+│   ├── grafeas
+│   │   ├── BUILD.bazel
+│   │   └── v1
+│   ├── LICENSE
+│   ├── load_json.bzl
+│   ├── Makefile
+│   ├── PACKAGES.md
+│   ├── README.md
+│   ├── repository_rules.bzl
+│   ├── SECURITY.md
+│   └── WORKSPACE
+├── go.sum
+└── internal
+    ├── handler
+    │   ├── studenthandler.go
+    │   └── teacherhandler.go
+    └── services
+
+60 directories, 29 files

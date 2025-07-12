@@ -1,0 +1,97 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+
+package teacher;
+
+option go_package = "github.com/karanparmar2o/student-dashboard/api/teacher";
+
+service TeacherService {
+    rpc RegisterTeacher(RegisterTeacherRequest) returns (RegisterTeacherResponse) {
+        option (google.api.http) = {
+            post: "/v1/teachers"
+            body: "*"
+        };
+    }
+
+    rpc GetTeacherList(GetTeacherListRequest) returns (GetTeacherListResponse) {
+        option (google.api.http) = {
+            get: "/v1/teachers"
+        };
+    }
+
+    rpc GetTeacherById(GetTeacherByIdRequest) returns (GetTeacherByIdResponse) {
+        option (google.api.http) = {
+            get: "/v1/teachers/{id}"
+        };
+    }
+
+    rpc UpdateTeacher(UpdateTeacherRequest) returns (UpdateTeacherResponse) {
+        option (google.api.http) = {
+            put: "/v1/teachers/{id}"
+            body: "*"
+        };
+    }
+
+    rpc DeleteTeacher(DeleteTeacherRequest) returns (DeleteTeacherResponse) {
+        option (google.api.http) = {
+            delete: "/v1/teachers/{id}"
+        };
+    }
+}
+
+message RegisterTeacherRequest {
+    string name = 1;
+    string gender = 2;
+    repeated string subject = 3;
+    repeated string class_sections = 4; 
+}
+
+message RegisterTeacherResponse {
+    bool success = 1;
+    string message = 2;
+    int64 id = 3; // added id if you want to return created teacher ID
+}
+
+message GetTeacherListRequest {}
+
+message GetTeacherListResponse {
+    repeated Teacher teachers = 1;
+}
+
+message GetTeacherByIdRequest {
+    int64 id = 1;
+}
+
+message GetTeacherByIdResponse {
+    Teacher teacher = 1;
+}
+
+message UpdateTeacherRequest {
+    int64 id = 1;
+    string name = 2;
+    string gender = 3;
+    repeated string subjects = 4;
+    repeated string class_sections = 5;
+}
+
+message UpdateTeacherResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message DeleteTeacherRequest {
+    int64 id = 1;
+}
+
+message DeleteTeacherResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message Teacher {
+    int64 id = 1;
+    string name = 2;
+    string gender = 3;
+    repeated string subjects = 4;
+    repeated string class_sections = 5; // e.g., ["7A", "8B"]
+}
