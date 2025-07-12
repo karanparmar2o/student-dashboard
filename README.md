@@ -104,3 +104,4 @@ Auth service & marks/grades service planned for future
 🤝 Contribute / Learn
 Feel free to fork, open issues, or suggest improvements!
 This is a learning project to practice Go, gRPC, and clean architecture.
+.
