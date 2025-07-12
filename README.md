@@ -2,6 +2,8 @@
 A modular Go project for managing students, teachers, classes, and related data — built with clean architecture, gRPC, and protobuf.
 
 🚀 Features
+
+
 ✅ Student service
 
 Register student
@@ -9,6 +11,9 @@ Register student
 List students
 
 Store class & section info
+
+
+
 
 ✅ Teacher service
 
@@ -22,11 +27,13 @@ List teachers
 
 Get teacher by ID
 
+
 ✅ Clean architecture
 
 Handler → Service → Repository → Model
 
 Separation of concerns for better maintainability
+
 
 ✅ Proto / gRPC APIs
 
@@ -34,30 +41,9 @@ Protobuf definitions (api/)
 
 Auto-generated Go gRPC code
 
-📂 Project structure (simplified)
-plaintext
-Copy
-Edit
-student-dashboard/
-├── api/                         # Protobuf definitions & generated code
-│   ├── student/                 # student.proto etc.
-│   └── teacher/
-├── internal/                    # Application logic
-│   ├── student/
-│   │   ├── handler/             # Handles gRPC/http requests
-│   │   ├── service/             # Business logic
-│   │   ├── repository/          # DB operations
-│   │   └── model/               # Data structs (Student)
-│   └── teacher/
-│       ├── handler/
-│       ├── service/
-│       ├── repository/
-│       └── model/
-├── config/                      # Config files
-├── cmd/                         # Main entrypoint
-│   └── main.go
-└── README.md
+
 ⚙️ Tech stack
+
 Go
 
 gRPC
