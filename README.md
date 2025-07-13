@@ -1,73 +1,59 @@
-📦 student-dashboard
-A modular Go project for managing students, teachers, classes, and related data — built with clean architecture, gRPC, and protobuf.
+# 📦 Student Dashboard
 
-🚀 Features
+A modular Go project to manage students, teachers, classes, and related data — built using clean architecture, gRPC, and protobuf.
 
+---
 
-✅ Student service
+### 🚀 Features
 
-Register student
+#### ✅ Student Service
+- Register student  
+- List students  
+- Store class & section info
 
-List students
+#### ✅ Teacher Service
+- Register teacher (with subjects & class-sections)
+- Update teacher
+- Delete teacher
+- List teachers
+- Get teacher by ID
 
-Store class & section info
+#### ✅ Clean Architecture
+- Handler → Service → Repository → Model
+- Clear separation of concerns for maintainability
 
+#### ✅ gRPC APIs
+- Protobuf definitions in `api/`
+- Auto-generated Go gRPC code
 
+---
 
+### 📡 REST / HTTP endpoints (via gRPC Gateway)
 
-✅ Teacher service
+| Service   | Method | Endpoint                | Body                                      |
+|----------|--------|------------------------|-------------------------------------------|
+| Teacher  | POST   | `/v1/teachers`         | `{ "name": "...", "gender": "...", "subjects": [...], "class_sections": [...] }` |
+| Teacher  | PUT    | `/v1/teachers/{id}`    | `{ "name": "...", "gender": "...", "subjects": [...], "class_sections": [...] }` |
+| Teacher  | DELETE | `/v1/teachers/{id}`    | –                                         |
+| Student  | POST   | `/v1/students`         | `{ "name": "...", "age": ..., "roll_number": "...", "class": "...", "section": "..." }` |
 
-Register teacher (with subjects & class-sections)
+Runs on port: **8080**
 
-Update teacher
+---
 
-Delete teacher
+### ⚙️ Tech stack
+- Go
+- gRPC & Protocol Buffers (proto3)
+- In-memory storage (map + sync.Mutex)
+- Clean architecture
 
-List teachers
+---
 
-Get teacher by ID
+### 🛠 Build & run
 
+Make sure you have Go and `protoc` (with Go plugins) installed.
 
-✅ Clean architecture
-
-Handler → Service → Repository → Model
-
-Separation of concerns for better maintainability
-
-
-✅ Proto / gRPC APIs
-
-Protobuf definitions (api/)
-
-Auto-generated Go gRPC code
-
-
-⚙️ Tech stack
-
-Go
-
-gRPC
-
-Protocol Buffers (proto3)
-
-In-memory storage (using sync.Mutex + map)
-
-Clean architecture style
-
-🛠 How it works (simple flow)
-1️⃣ Handler receives gRPC request
-2️⃣ Handler converts request into model object
-3️⃣ Calls method on Service
-4️⃣ Service applies business logic, then calls Repository
-5️⃣ Repository saves / retrieves data from in-memory store
-6️⃣ Service returns result → Handler returns gRPC response
-
-📦 Build & run
-Make sure you have Go installed and protoc + Go plugins set up.
-
-bash
-Copy
-Edit
+```bash
 # Clone the repo
 git clone https://github.com/yourusername/student-dashboard.git
 cd student-dashboard
@@ -76,18 +62,5 @@ cd student-dashboard
 protoc --go_out=. --go-grpc_out=. api/student/student.proto
 protoc --go_out=. --go-grpc_out=. api/teacher/teacher.proto
 
-# Run the project
+# Run the server
 go run cmd/main.go
-(Add real build instructions once you finalize deployment or dockerize it)
-
-✏ Notes
-Data is stored in-memory (for demo/testing)
-
-Later you can add real database (MySQL, PostgreSQL, etc.)
-
-Auth service & marks/grades service planned for future
-
-🤝 Contribute / Learn
-Feel free to fork, open issues, or suggest improvements!
-This is a learning project to practice Go, gRPC, and clean architecture.
-.
