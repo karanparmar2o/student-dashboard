@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  student:
+    build: .
+    command: ["./student"]
+    ports:
+      - "8081:8081"
+    networks:
+      - backend
+
+  teacher:
+    build: .
+    command: ["./teacher"]
+    ports:
+      - "8082:8082"
+    networks:
+      - backend
+
+  remark:
+    build: .
+    command: ["./remark"]
+    ports:
+      - "8083:8083"
+    networks:
+      - backend
+
+networks:
+  backend:

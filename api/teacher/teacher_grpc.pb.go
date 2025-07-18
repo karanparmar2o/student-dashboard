@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TeacherService_RegisterTeacher_FullMethodName = "/teacher.TeacherService/RegisterTeacher"
-	TeacherService_GetTeacherList_FullMethodName  = "/teacher.TeacherService/GetTeacherList"
-	TeacherService_GetTeacherById_FullMethodName  = "/teacher.TeacherService/GetTeacherById"
-	TeacherService_UpdateTeacher_FullMethodName   = "/teacher.TeacherService/UpdateTeacher"
-	TeacherService_DeleteTeacher_FullMethodName   = "/teacher.TeacherService/DeleteTeacher"
+	TeacherService_RegisterTeacher_FullMethodName      = "/teacher.TeacherService/RegisterTeacher"
+	TeacherService_GetTeacherList_FullMethodName       = "/teacher.TeacherService/GetTeacherList"
+	TeacherService_GetTeacherById_FullMethodName       = "/teacher.TeacherService/GetTeacherById"
+	TeacherService_UpdateTeacher_FullMethodName        = "/teacher.TeacherService/UpdateTeacher"
+	TeacherService_DeleteTeacher_FullMethodName        = "/teacher.TeacherService/DeleteTeacher"
+	TeacherService_GetClassesForTeacher_FullMethodName = "/teacher.TeacherService/GetClassesForTeacher"
 )
 
 // TeacherServiceClient is the client API for TeacherService service.
@@ -35,6 +36,7 @@ type TeacherServiceClient interface {
 	GetTeacherById(ctx context.Context, in *GetTeacherByIdRequest, opts ...grpc.CallOption) (*GetTeacherByIdResponse, error)
 	UpdateTeacher(ctx context.Context, in *UpdateTeacherRequest, opts ...grpc.CallOption) (*UpdateTeacherResponse, error)
 	DeleteTeacher(ctx context.Context, in *DeleteTeacherRequest, opts ...grpc.CallOption) (*DeleteTeacherResponse, error)
+	GetClassesForTeacher(ctx context.Context, in *GetClassesForTeacherRequest, opts ...grpc.CallOption) (*GetClassesForTeacherResponse, error)
 }
 
 type teacherServiceClient struct {
@@ -95,6 +97,16 @@ func (c *teacherServiceClient) DeleteTeacher(ctx context.Context, in *DeleteTeac
 	return out, nil
 }
 
+func (c *teacherServiceClient) GetClassesForTeacher(ctx context.Context, in *GetClassesForTeacherRequest, opts ...grpc.CallOption) (*GetClassesForTeacherResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetClassesForTeacherResponse)
+	err := c.cc.Invoke(ctx, TeacherService_GetClassesForTeacher_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TeacherServiceServer is the server API for TeacherService service.
 // All implementations must embed UnimplementedTeacherServiceServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type TeacherServiceServer interface {
 	GetTeacherById(context.Context, *GetTeacherByIdRequest) (*GetTeacherByIdResponse, error)
 	UpdateTeacher(context.Context, *UpdateTeacherRequest) (*UpdateTeacherResponse, error)
 	DeleteTeacher(context.Context, *DeleteTeacherRequest) (*DeleteTeacherResponse, error)
+	GetClassesForTeacher(context.Context, *GetClassesForTeacherRequest) (*GetClassesForTeacherResponse, error)
 	mustEmbedUnimplementedTeacherServiceServer()
 }
 
@@ -128,6 +141,9 @@ func (UnimplementedTeacherServiceServer) UpdateTeacher(context.Context, *UpdateT
 }
 func (UnimplementedTeacherServiceServer) DeleteTeacher(context.Context, *DeleteTeacherRequest) (*DeleteTeacherResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTeacher not implemented")
+}
+func (UnimplementedTeacherServiceServer) GetClassesForTeacher(context.Context, *GetClassesForTeacherRequest) (*GetClassesForTeacherResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetClassesForTeacher not implemented")
 }
 func (UnimplementedTeacherServiceServer) mustEmbedUnimplementedTeacherServiceServer() {}
 func (UnimplementedTeacherServiceServer) testEmbeddedByValue()                        {}
@@ -240,6 +256,24 @@ func _TeacherService_DeleteTeacher_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TeacherService_GetClassesForTeacher_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetClassesForTeacherRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TeacherServiceServer).GetClassesForTeacher(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TeacherService_GetClassesForTeacher_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TeacherServiceServer).GetClassesForTeacher(ctx, req.(*GetClassesForTeacherRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TeacherService_ServiceDesc is the grpc.ServiceDesc for TeacherService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +300,10 @@ var TeacherService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteTeacher",
 			Handler:    _TeacherService_DeleteTeacher_Handler,
+		},
+		{
+			MethodName: "GetClassesForTeacher",
+			Handler:    _TeacherService_GetClassesForTeacher_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

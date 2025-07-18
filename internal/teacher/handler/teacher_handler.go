@@ -4,101 +4,91 @@ import (
 	"context"
 
 	teacherpb "github.com/karanparmar2o/student-dashboard/api/teacher"
-	"github.com/karanparmar2o/student-dashboard/internal/teacher/model"
+	"github.com/karanparmar2o/student-dashboard/internal/teacher/repository"
 	"github.com/karanparmar2o/student-dashboard/internal/teacher/service"
 )
 
 type TeacherHandler struct {
-	service *service.TeacherService
+	teacherpb.UnimplementedTeacherServiceServer
+	svc *service.TeacherService
 }
 
 func NewTeacherHandler(s *service.TeacherService) *TeacherHandler {
-	return &TeacherHandler{service: s}
+	return &TeacherHandler{svc: s}
 }
 
-// Register a new teacher
 func (h *TeacherHandler) RegisterTeacher(ctx context.Context, req *teacherpb.RegisterTeacherRequest) (*teacherpb.RegisterTeacherResponse, error) {
-	teacher := &model.Teacher{
-		Name:          req.GetName(),
-		Gender:        req.GetGender(),
-		Subject:       req.GetSubjects(),
-		ClassSections: req.GetClassSections(),
+	t := repository.Teacher{
+		Name:          req.Name,
+		Gender:        req.Gender,
+		Subjects:      req.Subject,
+		ClassSections: req.ClassSections,
 	}
-
-	created, err := h.service.RegisterTeacher(ctx, teacher)
+	id, err := h.svc.RegisterTeacher(t)
 	if err != nil {
-		return nil, err
+		return &teacherpb.RegisterTeacherResponse{Success: false, Message: err.Error()}, nil
 	}
-
-	return &teacherpb.RegisterTeacherResponse{
-		Id:      created.ID,
-		Success: true,
-		Message: "Teacher registered successfully",
-	}, nil
+	return &teacherpb.RegisterTeacherResponse{Success: true, Id: id, Message: "Teacher registered"}, nil
 }
 
-// Update existing teacher
-func (h *TeacherHandler) UpdateTeacher(ctx context.Context, req *teacherpb.UpdateTeacherRequest) (*teacherpb.UpdateTeacherResponse, error) {
-	teacher := &model.Teacher{
-		Name:          req.GetName(),
-		Gender:        req.GetGender(),
-		Subject:       req.GetSubjects(),
-		ClassSections: req.GetClassSections(),
-	}
-
-	_, err := h.service.UpdateTeacher(ctx, req.Id, teacher)
-	if err != nil {
-		return nil, err
-	}
-
-	return &teacherpb.UpdateTeacherResponse{
-		Success: true,
-		Message: "Teacher registered successfully",
-	}, nil
-}
-
-// Delete teacher by ID
-func (h *TeacherHandler) DeleteTeacher(ctx context.Context, req *teacherpb.DeleteTeacherRequest) (*teacherpb.DeleteTeacherResponse, error) {
-	err := h.service.DeleteTeacher(ctx, req.Id)
-	if err != nil {
-		return nil, err
-	}
-
-	return &teacherpb.DeleteTeacherResponse{Success: true}, nil
-}
-
-// List all teachers
-func (h *TeacherHandler) ListTeachers(ctx context.Context, req *teacherpb.GetTeacherListRequest) (*teacherpb.GetTeacherListResponse, error) {
-	teachers, err := h.service.ListTeachers(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	resp := &teacherpb.GetTeacherListResponse{}
+func (h *TeacherHandler) GetTeacherList(ctx context.Context, req *teacherpb.GetTeacherListRequest) (*teacherpb.GetTeacherListResponse, error) {
+	teachers := h.svc.GetAllTeachers()
+	var pbTeachers []*teacherpb.Teacher
 	for _, t := range teachers {
-		resp.Teachers = append(resp.Teachers, &teacherpb.Teacher{
+		pbTeachers = append(pbTeachers, &teacherpb.Teacher{
 			Id:            t.ID,
 			Name:          t.Name,
 			Gender:        t.Gender,
+			Subjects:      t.Subjects,
 			ClassSections: t.ClassSections,
 		})
 	}
-	return resp, nil
+	return &teacherpb.GetTeacherListResponse{Teachers: pbTeachers}, nil
 }
 
-// Get teacher by name
-func (h *TeacherHandler) GetTeacherByName(ctx context.Context, req *teacherpb.GetTeacherByIdRequest) (*teacherpb.GetTeacherByIdResponse, error) {
-	t, err := h.service.GetTeacherByID(ctx, req.Id)
+func (h *TeacherHandler) GetTeacherById(ctx context.Context, req *teacherpb.GetTeacherByIdRequest) (*teacherpb.GetTeacherByIdResponse, error) {
+	t, err := h.svc.GetTeacher(req.Id)
 	if err != nil {
 		return nil, err
 	}
-
 	return &teacherpb.GetTeacherByIdResponse{
 		Teacher: &teacherpb.Teacher{
 			Id:            t.ID,
 			Name:          t.Name,
 			Gender:        t.Gender,
+			Subjects:      t.Subjects,
 			ClassSections: t.ClassSections,
 		},
 	}, nil
+}
+
+func (h *TeacherHandler) UpdateTeacher(ctx context.Context, req *teacherpb.UpdateTeacherRequest) (*teacherpb.UpdateTeacherResponse, error) {
+	t := repository.Teacher{
+		ID:            req.Id,
+		Name:          req.Name,
+		Gender:        req.Gender,
+		Subjects:      req.Subjects,
+		ClassSections: req.ClassSections,
+	}
+	err := h.svc.UpdateTeacher(t)
+	if err != nil {
+		return &teacherpb.UpdateTeacherResponse{Success: false, Message: err.Error()}, nil
+	}
+	return &teacherpb.UpdateTeacherResponse{Success: true, Message: "Teacher updated"}, nil
+}
+
+func (h *TeacherHandler) DeleteTeacher(ctx context.Context, req *teacherpb.DeleteTeacherRequest) (*teacherpb.DeleteTeacherResponse, error) {
+	err := h.svc.DeleteTeacher(req.Id)
+	if err != nil {
+		return &teacherpb.DeleteTeacherResponse{Success: false, Message: err.Error()}, nil
+	}
+	return &teacherpb.DeleteTeacherResponse{Success: true, Message: "Teacher deleted"}, nil
+}
+
+func (h *TeacherHandler) GetClassesForTeacher(ctx context.Context, req *teacherpb.GetClassesForTeacherRequest) (*teacherpb.GetClassesForTeacherResponse, error) {
+	classes, err := h.svc.GetClassesForTeacher(req.TeacherId)
+	if err != nil {
+		return nil, err
+	}
+	return &teacherpb.GetClassesForTeacherResponse{ClassSections: classes}, nil
 }

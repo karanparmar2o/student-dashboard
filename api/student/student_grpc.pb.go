@@ -19,8 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	StudentService_RegisterStudent_FullMethodName = "/student.StudentService/RegisterStudent"
-	StudentService_GetStudentList_FullMethodName  = "/student.StudentService/GetStudentList"
+	StudentService_RegisterStudent_FullMethodName     = "/student.StudentService/RegisterStudent"
+	StudentService_GetStudentList_FullMethodName      = "/student.StudentService/GetStudentList"
+	StudentService_GetStudentById_FullMethodName      = "/student.StudentService/GetStudentById"
+	StudentService_UpdateStudent_FullMethodName       = "/student.StudentService/UpdateStudent"
+	StudentService_DeleteStudent_FullMethodName       = "/student.StudentService/DeleteStudent"
+	StudentService_GetStudentsForClass_FullMethodName = "/student.StudentService/GetStudentsForClass"
+	StudentService_AddMarks_FullMethodName            = "/student.StudentService/AddMarks"
+	StudentService_UpdateMarks_FullMethodName         = "/student.StudentService/UpdateMarks"
+	StudentService_GetMarksForStudent_FullMethodName  = "/student.StudentService/GetMarksForStudent"
 )
 
 // StudentServiceClient is the client API for StudentService service.
@@ -29,6 +36,13 @@ const (
 type StudentServiceClient interface {
 	RegisterStudent(ctx context.Context, in *RegisterStudentRequest, opts ...grpc.CallOption) (*RegisterStudentResponse, error)
 	GetStudentList(ctx context.Context, in *GetStudentListRequest, opts ...grpc.CallOption) (*GetStudentListResponse, error)
+	GetStudentById(ctx context.Context, in *GetStudentByIdRequest, opts ...grpc.CallOption) (*GetStudentByIdResponse, error)
+	UpdateStudent(ctx context.Context, in *UpdateStudentRequest, opts ...grpc.CallOption) (*UpdateStudentResponse, error)
+	DeleteStudent(ctx context.Context, in *DeleteStudentRequest, opts ...grpc.CallOption) (*DeleteStudentResponse, error)
+	GetStudentsForClass(ctx context.Context, in *GetStudentsForClassRequest, opts ...grpc.CallOption) (*GetStudentsForClassResponse, error)
+	AddMarks(ctx context.Context, in *AddMarksRequest, opts ...grpc.CallOption) (*AddMarksResponse, error)
+	UpdateMarks(ctx context.Context, in *UpdateMarksRequest, opts ...grpc.CallOption) (*UpdateMarksResponse, error)
+	GetMarksForStudent(ctx context.Context, in *GetMarksForStudentRequest, opts ...grpc.CallOption) (*GetMarksForStudentResponse, error)
 }
 
 type studentServiceClient struct {
@@ -59,12 +73,89 @@ func (c *studentServiceClient) GetStudentList(ctx context.Context, in *GetStuden
 	return out, nil
 }
 
+func (c *studentServiceClient) GetStudentById(ctx context.Context, in *GetStudentByIdRequest, opts ...grpc.CallOption) (*GetStudentByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetStudentByIdResponse)
+	err := c.cc.Invoke(ctx, StudentService_GetStudentById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *studentServiceClient) UpdateStudent(ctx context.Context, in *UpdateStudentRequest, opts ...grpc.CallOption) (*UpdateStudentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateStudentResponse)
+	err := c.cc.Invoke(ctx, StudentService_UpdateStudent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *studentServiceClient) DeleteStudent(ctx context.Context, in *DeleteStudentRequest, opts ...grpc.CallOption) (*DeleteStudentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteStudentResponse)
+	err := c.cc.Invoke(ctx, StudentService_DeleteStudent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *studentServiceClient) GetStudentsForClass(ctx context.Context, in *GetStudentsForClassRequest, opts ...grpc.CallOption) (*GetStudentsForClassResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetStudentsForClassResponse)
+	err := c.cc.Invoke(ctx, StudentService_GetStudentsForClass_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *studentServiceClient) AddMarks(ctx context.Context, in *AddMarksRequest, opts ...grpc.CallOption) (*AddMarksResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddMarksResponse)
+	err := c.cc.Invoke(ctx, StudentService_AddMarks_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *studentServiceClient) UpdateMarks(ctx context.Context, in *UpdateMarksRequest, opts ...grpc.CallOption) (*UpdateMarksResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateMarksResponse)
+	err := c.cc.Invoke(ctx, StudentService_UpdateMarks_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *studentServiceClient) GetMarksForStudent(ctx context.Context, in *GetMarksForStudentRequest, opts ...grpc.CallOption) (*GetMarksForStudentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMarksForStudentResponse)
+	err := c.cc.Invoke(ctx, StudentService_GetMarksForStudent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StudentServiceServer is the server API for StudentService service.
 // All implementations must embed UnimplementedStudentServiceServer
 // for forward compatibility.
 type StudentServiceServer interface {
 	RegisterStudent(context.Context, *RegisterStudentRequest) (*RegisterStudentResponse, error)
 	GetStudentList(context.Context, *GetStudentListRequest) (*GetStudentListResponse, error)
+	GetStudentById(context.Context, *GetStudentByIdRequest) (*GetStudentByIdResponse, error)
+	UpdateStudent(context.Context, *UpdateStudentRequest) (*UpdateStudentResponse, error)
+	DeleteStudent(context.Context, *DeleteStudentRequest) (*DeleteStudentResponse, error)
+	GetStudentsForClass(context.Context, *GetStudentsForClassRequest) (*GetStudentsForClassResponse, error)
+	AddMarks(context.Context, *AddMarksRequest) (*AddMarksResponse, error)
+	UpdateMarks(context.Context, *UpdateMarksRequest) (*UpdateMarksResponse, error)
+	GetMarksForStudent(context.Context, *GetMarksForStudentRequest) (*GetMarksForStudentResponse, error)
 	mustEmbedUnimplementedStudentServiceServer()
 }
 
@@ -80,6 +171,27 @@ func (UnimplementedStudentServiceServer) RegisterStudent(context.Context, *Regis
 }
 func (UnimplementedStudentServiceServer) GetStudentList(context.Context, *GetStudentListRequest) (*GetStudentListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStudentList not implemented")
+}
+func (UnimplementedStudentServiceServer) GetStudentById(context.Context, *GetStudentByIdRequest) (*GetStudentByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStudentById not implemented")
+}
+func (UnimplementedStudentServiceServer) UpdateStudent(context.Context, *UpdateStudentRequest) (*UpdateStudentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateStudent not implemented")
+}
+func (UnimplementedStudentServiceServer) DeleteStudent(context.Context, *DeleteStudentRequest) (*DeleteStudentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteStudent not implemented")
+}
+func (UnimplementedStudentServiceServer) GetStudentsForClass(context.Context, *GetStudentsForClassRequest) (*GetStudentsForClassResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStudentsForClass not implemented")
+}
+func (UnimplementedStudentServiceServer) AddMarks(context.Context, *AddMarksRequest) (*AddMarksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddMarks not implemented")
+}
+func (UnimplementedStudentServiceServer) UpdateMarks(context.Context, *UpdateMarksRequest) (*UpdateMarksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMarks not implemented")
+}
+func (UnimplementedStudentServiceServer) GetMarksForStudent(context.Context, *GetMarksForStudentRequest) (*GetMarksForStudentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMarksForStudent not implemented")
 }
 func (UnimplementedStudentServiceServer) mustEmbedUnimplementedStudentServiceServer() {}
 func (UnimplementedStudentServiceServer) testEmbeddedByValue()                        {}
@@ -138,6 +250,132 @@ func _StudentService_GetStudentList_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StudentService_GetStudentById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStudentByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).GetStudentById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_GetStudentById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).GetStudentById(ctx, req.(*GetStudentByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StudentService_UpdateStudent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStudentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).UpdateStudent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_UpdateStudent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).UpdateStudent(ctx, req.(*UpdateStudentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StudentService_DeleteStudent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteStudentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).DeleteStudent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_DeleteStudent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).DeleteStudent(ctx, req.(*DeleteStudentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StudentService_GetStudentsForClass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStudentsForClassRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).GetStudentsForClass(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_GetStudentsForClass_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).GetStudentsForClass(ctx, req.(*GetStudentsForClassRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StudentService_AddMarks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddMarksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).AddMarks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_AddMarks_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).AddMarks(ctx, req.(*AddMarksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StudentService_UpdateMarks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMarksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).UpdateMarks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_UpdateMarks_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).UpdateMarks(ctx, req.(*UpdateMarksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StudentService_GetMarksForStudent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMarksForStudentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StudentServiceServer).GetMarksForStudent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StudentService_GetMarksForStudent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StudentServiceServer).GetMarksForStudent(ctx, req.(*GetMarksForStudentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StudentService_ServiceDesc is the grpc.ServiceDesc for StudentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +390,34 @@ var StudentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStudentList",
 			Handler:    _StudentService_GetStudentList_Handler,
+		},
+		{
+			MethodName: "GetStudentById",
+			Handler:    _StudentService_GetStudentById_Handler,
+		},
+		{
+			MethodName: "UpdateStudent",
+			Handler:    _StudentService_UpdateStudent_Handler,
+		},
+		{
+			MethodName: "DeleteStudent",
+			Handler:    _StudentService_DeleteStudent_Handler,
+		},
+		{
+			MethodName: "GetStudentsForClass",
+			Handler:    _StudentService_GetStudentsForClass_Handler,
+		},
+		{
+			MethodName: "AddMarks",
+			Handler:    _StudentService_AddMarks_Handler,
+		},
+		{
+			MethodName: "UpdateMarks",
+			Handler:    _StudentService_UpdateMarks_Handler,
+		},
+		{
+			MethodName: "GetMarksForStudent",
+			Handler:    _StudentService_GetMarksForStudent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

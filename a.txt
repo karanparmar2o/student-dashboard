@@ -1,92 +1,1001 @@
 .
 ├── api
+│   ├── remark
 │   ├── student
-│   │   ├── student_grpc.pb.go
-│   │   ├── student.pb.go
-│   │   ├── student.pb.gw.go
-│   │   └── student.proto
 │   └── teacher
-│       ├── teacher_grpc.pb.go
-│       ├── teacher.pb.go
-│       ├── teacher.pb.gw.go
-│       └── teacher.proto
-├── a.txt
 ├── cmd
 │   └── server
-│       └── main.go
-├── go.mod
+│       ├── remark
+│       ├── Student
+│       └── teacher
+├── github.com
+│   └── karanparmar2o
+│       └── student-dashboard
+│           └── api
+│               ├── remark
+│               ├── student
+│               └── teacher
 ├── googleapis
-│   ├── api-index-v1.json
-│   ├── BUILD.bazel
-│   ├── CODE_OF_CONDUCT.md
-│   ├── CONTRIBUTING.md
 │   ├── gapic
 │   │   └── metadata
-│   ├── generator-versions.json
 │   ├── google
 │   │   ├── actions
+│   │   │   ├── sdk
+│   │   │   │   └── v2
+│   │   │   │       ├── conversation
+│   │   │   │       │   └── prompt
+│   │   │   │       │       └── content
+│   │   │   │       └── interactionmodel
+│   │   │   │           ├── prompt
+│   │   │   │           │   └── content
+│   │   │   │           └── type
+│   │   │   └── type
 │   │   ├── ads
+│   │   │   ├── admanager
+│   │   │   │   └── v1
+│   │   │   ├── admob
+│   │   │   │   └── v1
+│   │   │   ├── datamanager
+│   │   │   │   └── v1
+│   │   │   ├── googleads
+│   │   │   │   ├── v18
+│   │   │   │   │   ├── common
+│   │   │   │   │   ├── enums
+│   │   │   │   │   ├── errors
+│   │   │   │   │   ├── resources
+│   │   │   │   │   └── services
+│   │   │   │   ├── v19
+│   │   │   │   │   ├── common
+│   │   │   │   │   ├── enums
+│   │   │   │   │   ├── errors
+│   │   │   │   │   ├── resources
+│   │   │   │   │   └── services
+│   │   │   │   └── v20
+│   │   │   │       ├── common
+│   │   │   │       ├── enums
+│   │   │   │       ├── errors
+│   │   │   │       ├── resources
+│   │   │   │       └── services
+│   │   │   └── searchads360
+│   │   │       └── v0
+│   │   │           ├── common
+│   │   │           ├── enums
+│   │   │           ├── errors
+│   │   │           ├── resources
+│   │   │           └── services
 │   │   ├── ai
+│   │   │   └── generativelanguage
+│   │   │       ├── v1
+│   │   │       ├── v1alpha
+│   │   │       ├── v1beta
+│   │   │       ├── v1beta2
+│   │   │       └── v1beta3
 │   │   ├── analytics
+│   │   │   ├── admin
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── cloud
+│   │   │   └── data
+│   │   │       ├── v1alpha
+│   │   │       └── v1beta
 │   │   ├── api
+│   │   │   ├── apikeys
+│   │   │   │   └── v2
+│   │   │   ├── cloudquotas
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta
+│   │   │   ├── expr
+│   │   │   │   ├── conformance
+│   │   │   │   │   └── v1alpha1
+│   │   │   │   ├── v1alpha1
+│   │   │   │   └── v1beta1
+│   │   │   ├── servicecontrol
+│   │   │   │   ├── v1
+│   │   │   │   └── v2
+│   │   │   ├── servicemanagement
+│   │   │   │   └── v1
+│   │   │   └── serviceusage
+│   │   │       ├── v1
+│   │   │       └── v1beta1
 │   │   ├── appengine
+│   │   │   ├── legacy
+│   │   │   ├── logging
+│   │   │   │   └── v1
+│   │   │   ├── v1
+│   │   │   └── v1beta
 │   │   ├── apps
+│   │   │   ├── alertcenter
+│   │   │   │   └── v1beta1
+│   │   │   ├── card
+│   │   │   │   └── v1
+│   │   │   ├── drive
+│   │   │   │   ├── activity
+│   │   │   │   │   └── v2
+│   │   │   │   └── labels
+│   │   │   │       ├── v2
+│   │   │   │       └── v2beta
+│   │   │   ├── events
+│   │   │   │   └── subscriptions
+│   │   │   │       ├── v1
+│   │   │   │       └── v1beta
+│   │   │   ├── meet
+│   │   │   │   ├── v2
+│   │   │   │   └── v2beta
+│   │   │   └── script
+│   │   │       └── type
+│   │   │           ├── calendar
+│   │   │           ├── docs
+│   │   │           ├── drive
+│   │   │           ├── gmail
+│   │   │           ├── sheets
+│   │   │           └── slides
 │   │   ├── area120
+│   │   │   └── tables
+│   │   │       └── v1alpha1
 │   │   ├── assistant
+│   │   │   └── embedded
+│   │   │       ├── v1alpha1
+│   │   │       └── v1alpha2
 │   │   ├── bigtable
-│   │   ├── BUILD.bazel
+│   │   │   ├── admin
+│   │   │   │   └── v2
+│   │   │   ├── v1
+│   │   │   └── v2
 │   │   ├── bytestream
 │   │   ├── chat
+│   │   │   ├── logging
+│   │   │   │   └── v1
+│   │   │   └── v1
 │   │   ├── chromeos
+│   │   │   ├── moblab
+│   │   │   │   └── v1beta1
+│   │   │   └── uidetection
+│   │   │       └── v1
 │   │   ├── cloud
+│   │   │   ├── abuseevent
+│   │   │   │   └── logging
+│   │   │   │       └── v1
+│   │   │   ├── accessapproval
+│   │   │   │   └── v1
+│   │   │   ├── advisorynotifications
+│   │   │   │   └── v1
+│   │   │   ├── aiplatform
+│   │   │   │   ├── logging
+│   │   │   │   ├── v1
+│   │   │   │   │   └── schema
+│   │   │   │   │       ├── predict
+│   │   │   │   │       │   ├── instance
+│   │   │   │   │       │   ├── params
+│   │   │   │   │       │   └── prediction
+│   │   │   │   │       └── trainingjob
+│   │   │   │   │           └── definition
+│   │   │   │   └── v1beta1
+│   │   │   │       └── schema
+│   │   │   │           ├── predict
+│   │   │   │           │   ├── instance
+│   │   │   │           │   ├── params
+│   │   │   │           │   └── prediction
+│   │   │   │           └── trainingjob
+│   │   │   │               └── definition
+│   │   │   ├── alloydb
+│   │   │   │   ├── connectors
+│   │   │   │   │   ├── v1
+│   │   │   │   │   ├── v1alpha
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── apigateway
+│   │   │   │   └── v1
+│   │   │   ├── apigeeconnect
+│   │   │   │   └── v1
+│   │   │   ├── apigeeregistry
+│   │   │   │   └── v1
+│   │   │   ├── apihub
+│   │   │   │   └── v1
+│   │   │   ├── apphub
+│   │   │   │   └── v1
+│   │   │   ├── asset
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1p1beta1
+│   │   │   │   ├── v1p2beta1
+│   │   │   │   ├── v1p5beta1
+│   │   │   │   └── v1p7beta1
+│   │   │   ├── assuredworkloads
+│   │   │   │   ├── regulatoryintercept
+│   │   │   │   │   └── logging
+│   │   │   │   │       └── v1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── audit
+│   │   │   ├── automl
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── backupdr
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── baremetalsolution
+│   │   │   │   └── v2
+│   │   │   ├── batch
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha
+│   │   │   ├── beyondcorp
+│   │   │   │   ├── appconnections
+│   │   │   │   │   └── v1
+│   │   │   │   ├── appconnectors
+│   │   │   │   │   └── v1
+│   │   │   │   ├── appgateways
+│   │   │   │   │   └── v1
+│   │   │   │   ├── clientconnectorservices
+│   │   │   │   │   └── v1
+│   │   │   │   └── clientgateways
+│   │   │   │       └── v1
+│   │   │   ├── bigquery
+│   │   │   │   ├── analyticshub
+│   │   │   │   │   └── v1
+│   │   │   │   ├── biglake
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1alpha1
+│   │   │   │   ├── connection
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta1
+│   │   │   │   ├── dataexchange
+│   │   │   │   │   └── v1beta1
+│   │   │   │   ├── datapolicies
+│   │   │   │   │   ├── v1
+│   │   │   │   │   ├── v1beta1
+│   │   │   │   │   └── v2beta1
+│   │   │   │   ├── datatransfer
+│   │   │   │   │   └── v1
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── migration
+│   │   │   │   │   ├── v2
+│   │   │   │   │   └── v2alpha
+│   │   │   │   ├── reservation
+│   │   │   │   │   └── v1
+│   │   │   │   ├── storage
+│   │   │   │   │   ├── v1
+│   │   │   │   │   ├── v1alpha
+│   │   │   │   │   ├── v1beta
+│   │   │   │   │   ├── v1beta1
+│   │   │   │   │   └── v1beta2
+│   │   │   │   └── v2
+│   │   │   ├── billing
+│   │   │   │   ├── budgets
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta1
+│   │   │   │   └── v1
+│   │   │   ├── binaryauthorization
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── blockchainnodeengine
+│   │   │   │   └── v1
+│   │   │   ├── certificatemanager
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── channel
+│   │   │   │   └── v1
+│   │   │   ├── chronicle
+│   │   │   │   └── v1
+│   │   │   ├── cloudcontrolspartner
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta
+│   │   │   ├── clouddms
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── cloudsetup
+│   │   │   │   └── logging
+│   │   │   │       └── v1
+│   │   │   ├── commerce
+│   │   │   │   └── consumer
+│   │   │   │       └── procurement
+│   │   │   │           ├── v1
+│   │   │   │           └── v1alpha1
+│   │   │   ├── common
+│   │   │   ├── compute
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1beta
+│   │   │   │   └── v1small
+│   │   │   ├── confidentialcomputing
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha1
+│   │   │   ├── config
+│   │   │   │   └── v1
+│   │   │   ├── configdelivery
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── connectors
+│   │   │   │   └── v1
+│   │   │   ├── contactcenterinsights
+│   │   │   │   └── v1
+│   │   │   ├── contentwarehouse
+│   │   │   │   └── v1
+│   │   │   ├── datacatalog
+│   │   │   │   ├── lineage
+│   │   │   │   │   └── v1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── dataform
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── datafusion
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── datalabeling
+│   │   │   │   └── v1beta1
+│   │   │   ├── datapipelines
+│   │   │   │   └── logging
+│   │   │   │       └── v1
+│   │   │   ├── dataplex
+│   │   │   │   └── v1
+│   │   │   ├── dataproc
+│   │   │   │   ├── logging
+│   │   │   │   └── v1
+│   │   │   ├── dataqna
+│   │   │   │   └── v1alpha
+│   │   │   ├── datastream
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha1
+│   │   │   ├── deploy
+│   │   │   │   └── v1
+│   │   │   ├── developerconnect
+│   │   │   │   └── v1
+│   │   │   ├── devicestreaming
+│   │   │   │   └── v1
+│   │   │   ├── dialogflow
+│   │   │   │   ├── cx
+│   │   │   │   │   ├── v3
+│   │   │   │   │   └── v3beta1
+│   │   │   │   ├── v2
+│   │   │   │   └── v2beta1
+│   │   │   ├── discoveryengine
+│   │   │   │   ├── logging
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── documentai
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta3
+│   │   │   ├── domains
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha2
+│   │   │   │   └── v1beta1
+│   │   │   ├── edgecontainer
+│   │   │   │   └── v1
+│   │   │   ├── edgenetwork
+│   │   │   │   └── v1
+│   │   │   ├── enterpriseknowledgegraph
+│   │   │   │   └── v1
+│   │   │   ├── essentialcontacts
+│   │   │   │   └── v1
+│   │   │   ├── eventarc
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── publishing
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── filer
+│   │   │   │   └── v1beta1
+│   │   │   ├── filestore
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── financialservices
+│   │   │   │   └── v1
+│   │   │   ├── functions
+│   │   │   │   ├── v1
+│   │   │   │   ├── v2
+│   │   │   │   ├── v2alpha
+│   │   │   │   └── v2beta
+│   │   │   ├── gdchardwaremanagement
+│   │   │   │   └── v1alpha
+│   │   │   ├── geminidataanalytics
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── gkebackup
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── gkeconnect
+│   │   │   │   └── gateway
+│   │   │   │       ├── v1
+│   │   │   │       └── v1beta1
+│   │   │   ├── gkehub
+│   │   │   │   ├── policycontroller
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── servicemesh
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── v1
+│   │   │   │   │   ├── configmanagement
+│   │   │   │   │   └── multiclusteringress
+│   │   │   │   ├── v1alpha
+│   │   │   │   │   ├── cloudauditlogging
+│   │   │   │   │   ├── configmanagement
+│   │   │   │   │   ├── metering
+│   │   │   │   │   ├── multiclusteringress
+│   │   │   │   │   └── servicemesh
+│   │   │   │   ├── v1beta
+│   │   │   │   │   ├── configmanagement
+│   │   │   │   │   ├── metering
+│   │   │   │   │   └── multiclusteringress
+│   │   │   │   └── v1beta1
+│   │   │   ├── gkemulticloud
+│   │   │   │   └── v1
+│   │   │   ├── gsuiteaddons
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── healthcare
+│   │   │   │   └── logging
+│   │   │   ├── iap
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── identitytoolkit
+│   │   │   │   ├── logging
+│   │   │   │   └── v2
+│   │   │   ├── ids
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── integrations
+│   │   │   │   └── v1alpha
+│   │   │   ├── iot
+│   │   │   │   └── v1
+│   │   │   ├── kms
+│   │   │   │   ├── inventory
+│   │   │   │   │   └── v1
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── kubernetes
+│   │   │   │   └── security
+│   │   │   │       └── containersecurity_logging
+│   │   │   ├── language
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1beta1
+│   │   │   │   ├── v1beta2
+│   │   │   │   └── v2
+│   │   │   ├── licensemanager
+│   │   │   │   └── v1
+│   │   │   ├── lifesciences
+│   │   │   │   └── v2beta
+│   │   │   ├── location
+│   │   │   ├── lustre
+│   │   │   │   └── v1
+│   │   │   ├── maintenance
+│   │   │   │   └── api
+│   │   │   │       └── v1beta
+│   │   │   ├── managedidentities
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── managedkafka
+│   │   │   │   ├── schemaregistry
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── mediatranslation
+│   │   │   │   ├── v1alpha1
+│   │   │   │   └── v1beta1
+│   │   │   ├── memcache
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta2
+│   │   │   ├── memorystore
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta
+│   │   │   ├── metastore
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── migrationcenter
+│   │   │   │   └── v1
+│   │   │   ├── modelarmor
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta
+│   │   │   ├── netapp
+│   │   │   │   └── v1
+│   │   │   ├── networkanalyzer
+│   │   │   │   └── logging
+│   │   │   │       └── v1
+│   │   │   ├── networkconnectivity
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha1
+│   │   │   ├── networkmanagement
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── networksecurity
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha1
+│   │   │   │   └── v1beta1
+│   │   │   ├── networkservices
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── notebooks
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1beta1
+│   │   │   │   └── v2
+│   │   │   ├── optimization
+│   │   │   │   └── v1
+│   │   │   ├── oracledatabase
+│   │   │   │   └── v1
+│   │   │   ├── orchestration
+│   │   │   │   └── airflow
+│   │   │   │       └── service
+│   │   │   │           ├── v1
+│   │   │   │           └── v1beta1
+│   │   │   ├── orgpolicy
+│   │   │   │   ├── v1
+│   │   │   │   └── v2
+│   │   │   ├── osconfig
+│   │   │   │   ├── agentendpoint
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── logging
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── oslogin
+│   │   │   │   ├── common
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── parallelstore
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta
+│   │   │   ├── parametermanager
+│   │   │   │   └── v1
+│   │   │   ├── paymentgateway
+│   │   │   │   └── issuerswitch
+│   │   │   │       ├── accountmanager
+│   │   │   │       │   └── v1
+│   │   │   │       └── v1
+│   │   │   ├── phishingprotection
+│   │   │   │   └── v1beta1
+│   │   │   ├── policysimulator
+│   │   │   │   └── v1
+│   │   │   ├── policytroubleshooter
+│   │   │   │   ├── iam
+│   │   │   │   │   ├── v3
+│   │   │   │   │   └── v3beta
+│   │   │   │   └── v1
+│   │   │   ├── privatecatalog
+│   │   │   │   └── v1beta1
+│   │   │   ├── privilegedaccessmanager
+│   │   │   │   └── v1
+│   │   │   ├── pubsublite
+│   │   │   │   └── v1
+│   │   │   ├── rapidmigrationassessment
+│   │   │   │   └── v1
+│   │   │   ├── recaptchaenterprise
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── recommendationengine
+│   │   │   │   └── v1beta1
+│   │   │   ├── recommender
+│   │   │   │   ├── logging
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── redis
+│   │   │   │   ├── cluster
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── resourcemanager
+│   │   │   │   ├── v2
+│   │   │   │   └── v3
+│   │   │   ├── retail
+│   │   │   │   ├── logging
+│   │   │   │   ├── v2
+│   │   │   │   ├── v2alpha
+│   │   │   │   └── v2beta
+│   │   │   ├── run
+│   │   │   │   └── v2
+│   │   │   ├── runtimeconfig
+│   │   │   │   └── v1beta1
+│   │   │   ├── saasaccelerator
+│   │   │   │   └── management
+│   │   │   │       └── logs
+│   │   │   │           └── v1
+│   │   │   ├── scheduler
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── secretmanager
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta2
+│   │   │   ├── secrets
+│   │   │   │   └── v1beta1
+│   │   │   ├── securesourcemanager
+│   │   │   │   └── v1
+│   │   │   ├── security
+│   │   │   │   ├── privateca
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta1
+│   │   │   │   └── publicca
+│   │   │   │       ├── v1
+│   │   │   │       ├── v1alpha1
+│   │   │   │       └── v1beta1
+│   │   │   ├── securitycenter
+│   │   │   │   ├── settings
+│   │   │   │   │   └── v1beta1
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1beta1
+│   │   │   │   ├── v1p1beta1
+│   │   │   │   └── v2
+│   │   │   ├── securitycentermanagement
+│   │   │   │   └── v1
+│   │   │   ├── securityposture
+│   │   │   │   └── v1
+│   │   │   ├── sensitiveaction
+│   │   │   │   └── logging
+│   │   │   │       └── v1
+│   │   │   ├── servicedirectory
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── servicehealth
+│   │   │   │   ├── logging
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── shell
+│   │   │   │   └── v1
+│   │   │   ├── speech
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1p1beta1
+│   │   │   │   └── v2
+│   │   │   ├── sql
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta4
+│   │   │   ├── storagebatchoperations
+│   │   │   │   └── v1
+│   │   │   ├── storageinsights
+│   │   │   │   └── v1
+│   │   │   ├── stream
+│   │   │   │   └── logging
+│   │   │   │       └── v1
+│   │   │   ├── support
+│   │   │   │   ├── v2
+│   │   │   │   └── v2beta
+│   │   │   ├── talent
+│   │   │   │   ├── v4
+│   │   │   │   └── v4beta1
+│   │   │   ├── tasks
+│   │   │   │   ├── v2
+│   │   │   │   ├── v2beta2
+│   │   │   │   └── v2beta3
+│   │   │   ├── telcoautomation
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha1
+│   │   │   ├── texttospeech
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── timeseriesinsights
+│   │   │   │   └── v1
+│   │   │   ├── tpu
+│   │   │   │   ├── v1
+│   │   │   │   ├── v2
+│   │   │   │   └── v2alpha1
+│   │   │   ├── translate
+│   │   │   │   ├── v3
+│   │   │   │   └── v3beta1
+│   │   │   ├── video
+│   │   │   │   ├── livestream
+│   │   │   │   │   ├── logging
+│   │   │   │   │   │   └── v1
+│   │   │   │   │   └── v1
+│   │   │   │   ├── stitcher
+│   │   │   │   │   └── v1
+│   │   │   │   └── transcoder
+│   │   │   │       └── v1
+│   │   │   ├── videointelligence
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1beta2
+│   │   │   │   ├── v1p1beta1
+│   │   │   │   ├── v1p2beta1
+│   │   │   │   └── v1p3beta1
+│   │   │   ├── vision
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1p1beta1
+│   │   │   │   ├── v1p2beta1
+│   │   │   │   ├── v1p3beta1
+│   │   │   │   └── v1p4beta1
+│   │   │   ├── visionai
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha1
+│   │   │   ├── vmmigration
+│   │   │   │   └── v1
+│   │   │   ├── vmwareengine
+│   │   │   │   └── v1
+│   │   │   ├── vpcaccess
+│   │   │   │   └── v1
+│   │   │   ├── webrisk
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── websecurityscanner
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1alpha
+│   │   │   │   └── v1beta
+│   │   │   ├── workflows
+│   │   │   │   ├── executions
+│   │   │   │   │   ├── v1
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── type
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta
+│   │   │   └── workstations
+│   │   │       ├── logging
+│   │   │       │   └── v1
+│   │   │       ├── v1
+│   │   │       └── v1beta
 │   │   ├── compute
+│   │   │   └── logging
+│   │   │       ├── dr
+│   │   │       │   └── v1
+│   │   │       └── gdnsusage
+│   │   │           └── v1
 │   │   ├── container
+│   │   │   ├── v1
+│   │   │   ├── v1alpha1
+│   │   │   └── v1beta1
 │   │   ├── dataflow
+│   │   │   └── v1beta3
 │   │   ├── datastore
+│   │   │   ├── admin
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   ├── v1
+│   │   │   └── v1beta3
 │   │   ├── devtools
+│   │   │   ├── artifactregistry
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta2
+│   │   │   ├── build
+│   │   │   │   └── v1
+│   │   │   ├── cloudbuild
+│   │   │   │   ├── v1
+│   │   │   │   └── v2
+│   │   │   ├── clouderrorreporting
+│   │   │   │   └── v1beta1
+│   │   │   ├── cloudprofiler
+│   │   │   │   └── v2
+│   │   │   ├── cloudtrace
+│   │   │   │   ├── v1
+│   │   │   │   └── v2
+│   │   │   ├── containeranalysis
+│   │   │   │   ├── v1
+│   │   │   │   └── v1beta1
+│   │   │   │       ├── attestation
+│   │   │   │       ├── build
+│   │   │   │       ├── common
+│   │   │   │       ├── cvss
+│   │   │   │       ├── deployment
+│   │   │   │       ├── discovery
+│   │   │   │       ├── grafeas
+│   │   │   │       ├── image
+│   │   │   │       ├── package
+│   │   │   │       ├── provenance
+│   │   │   │       ├── source
+│   │   │   │       └── vulnerability
+│   │   │   ├── remoteworkers
+│   │   │   │   └── v1test2
+│   │   │   ├── resultstore
+│   │   │   │   └── v2
+│   │   │   ├── source
+│   │   │   │   └── v1
+│   │   │   ├── sourcerepo
+│   │   │   │   └── v1
+│   │   │   └── testing
+│   │   │       └── v1
 │   │   ├── example
+│   │   │   └── library
+│   │   │       └── v1
 │   │   ├── firebase
+│   │   │   └── fcm
+│   │   │       └── connection
+│   │   │           └── v1alpha1
 │   │   ├── firestore
+│   │   │   ├── admin
+│   │   │   │   ├── v1
+│   │   │   │   ├── v1beta1
+│   │   │   │   └── v1beta2
+│   │   │   ├── bundle
+│   │   │   ├── v1
+│   │   │   └── v1beta1
 │   │   ├── genomics
+│   │   │   ├── v1
+│   │   │   └── v1alpha2
 │   │   ├── geo
+│   │   │   └── type
 │   │   ├── home
+│   │   │   ├── enterprise
+│   │   │   │   └── sdm
+│   │   │   │       └── v1
+│   │   │   └── graph
+│   │   │       └── v1
 │   │   ├── iam
+│   │   │   ├── admin
+│   │   │   │   └── v1
+│   │   │   ├── credentials
+│   │   │   │   └── v1
+│   │   │   ├── v1
+│   │   │   │   └── logging
+│   │   │   ├── v1beta
+│   │   │   ├── v2
+│   │   │   ├── v2beta
+│   │   │   ├── v3
+│   │   │   └── v3beta
 │   │   ├── identity
+│   │   │   └── accesscontextmanager
+│   │   │       ├── type
+│   │   │       └── v1
 │   │   ├── logging
+│   │   │   ├── type
+│   │   │   └── v2
 │   │   ├── longrunning
 │   │   ├── maps
+│   │   │   ├── addressvalidation
+│   │   │   │   └── v1
+│   │   │   ├── aerialview
+│   │   │   │   └── v1
+│   │   │   ├── areainsights
+│   │   │   │   └── v1
+│   │   │   ├── fleetengine
+│   │   │   │   ├── delivery
+│   │   │   │   │   └── v1
+│   │   │   │   └── v1
+│   │   │   ├── mapsplatformdatasets
+│   │   │   │   └── v1
+│   │   │   ├── mobilitybilling
+│   │   │   │   └── logs
+│   │   │   │       └── v1
+│   │   │   ├── places
+│   │   │   │   └── v1
+│   │   │   ├── playablelocations
+│   │   │   │   └── v3
+│   │   │   │       └── sample
+│   │   │   ├── regionlookup
+│   │   │   │   └── v1alpha
+│   │   │   ├── roads
+│   │   │   │   └── v1op
+│   │   │   ├── routeoptimization
+│   │   │   │   └── v1
+│   │   │   ├── routes
+│   │   │   │   ├── v1
+│   │   │   │   └── v1alpha
+│   │   │   ├── routespreferred
+│   │   │   │   └── v1
+│   │   │   ├── routing
+│   │   │   │   └── v2
+│   │   │   ├── solar
+│   │   │   │   └── v1
+│   │   │   ├── unity
+│   │   │   └── weather
+│   │   │       └── v1
 │   │   ├── marketingplatform
+│   │   │   └── admin
+│   │   │       └── v1alpha
 │   │   ├── monitoring
+│   │   │   ├── dashboard
+│   │   │   │   └── v1
+│   │   │   ├── metricsscope
+│   │   │   │   └── v1
+│   │   │   └── v3
 │   │   ├── networking
+│   │   │   └── trafficdirector
+│   │   │       └── type
 │   │   ├── partner
+│   │   │   └── aistreams
+│   │   │       └── v1alpha1
 │   │   ├── privacy
+│   │   │   └── dlp
+│   │   │       └── v2
 │   │   ├── pubsub
+│   │   │   ├── v1
+│   │   │   └── v1beta2
 │   │   ├── rpc
+│   │   │   └── context
 │   │   ├── search
+│   │   │   └── partnerdataingestion
+│   │   │       └── logging
+│   │   │           └── v1
 │   │   ├── security
+│   │   │   └── safebrowsing
+│   │   │       ├── v5
+│   │   │       └── v5alpha1
 │   │   ├── shopping
+│   │   │   ├── css
+│   │   │   │   └── v1
+│   │   │   ├── merchant
+│   │   │   │   ├── accounts
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── conversions
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── datasources
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── inventories
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── issueresolution
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── lfp
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── notifications
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── ordertracking
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── products
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── productstudio
+│   │   │   │   │   └── v1alpha
+│   │   │   │   ├── promotions
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── quota
+│   │   │   │   │   └── v1beta
+│   │   │   │   ├── reports
+│   │   │   │   │   ├── v1alpha
+│   │   │   │   │   └── v1beta
+│   │   │   │   └── reviews
+│   │   │   │       └── v1beta
+│   │   │   └── type
 │   │   ├── spanner
+│   │   │   ├── adapter
+│   │   │   │   └── v1
+│   │   │   ├── admin
+│   │   │   │   ├── database
+│   │   │   │   │   └── v1
+│   │   │   │   └── instance
+│   │   │   │       └── v1
+│   │   │   ├── executor
+│   │   │   │   └── v1
+│   │   │   └── v1
 │   │   ├── storage
+│   │   │   ├── control
+│   │   │   │   └── v2
+│   │   │   ├── platformlogs
+│   │   │   │   └── v1
+│   │   │   ├── v1
+│   │   │   └── v2
 │   │   ├── storagetransfer
+│   │   │   ├── logging
+│   │   │   └── v1
 │   │   ├── streetview
+│   │   │   └── publish
+│   │   │       └── v1
 │   │   ├── type
 │   │   └── watcher
-│   ├── grafeas
-│   │   ├── BUILD.bazel
-│   │   └── v1
-│   ├── LICENSE
-│   ├── load_json.bzl
-│   ├── Makefile
-│   ├── PACKAGES.md
-│   ├── README.md
-│   ├── repository_rules.bzl
-│   ├── SECURITY.md
-│   └── WORKSPACE
-├── go.sum
+│   │       └── v1
+│   └── grafeas
+│       └── v1
+│           └── swagger
 └── internal
-    ├── handler
-    │   ├── studenthandler.go
-    │   └── teacherhandler.go
-    └── services
+    ├── remark
+    │   ├── config
+    │   ├── handler
+    │   ├── repository
+    │   └── service
+    ├── student
+    │   ├── config
+    │   ├── handler
+    │   ├── model
+    │   ├── repo
+    │   └── service
+    └── teacher
+        ├── config
+        ├── handler
+        ├── model
+        ├── repository
+        └── service
 
-60 directories, 29 files
+998 directories

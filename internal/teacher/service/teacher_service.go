@@ -1,37 +1,35 @@
-// internal/teacher/service/teacher_service.go
 package service
 
-import (
-	"context"
-
-	"github.com/karanparmar2o/student-dashboard/internal/teacher/model"
-	"github.com/karanparmar2o/student-dashboard/internal/teacher/repository"
-)
+import "github.com/karanparmar2o/student-dashboard/internal/teacher/repository"
 
 type TeacherService struct {
-	repo *repository.TeacherRepo
+	repo repository.TeacherRepository
 }
 
-func NewTeacherService(r *repository.TeacherRepo) *TeacherService {
+func NewTeacherService(r repository.TeacherRepository) *TeacherService {
 	return &TeacherService{repo: r}
 }
 
-func (s *TeacherService) RegisterTeacher(ctx context.Context, t *model.Teacher) (*model.Teacher, error) {
-	return s.repo.Create(ctx, t)
+func (s *TeacherService) RegisterTeacher(t repository.Teacher) (int64, error) {
+	return s.repo.AddTeacher(t)
 }
 
-func (s *TeacherService) UpdateTeacher(ctx context.Context, id int64, t *model.Teacher) (*model.Teacher, error) {
-	return s.repo.Update(ctx, id, t)
+func (s *TeacherService) GetTeacher(id int64) (*repository.Teacher, error) {
+	return s.repo.GetTeacherByID(id)
 }
 
-func (s *TeacherService) DeleteTeacher(ctx context.Context, id int64) error {
-	return s.repo.Delete(ctx, id)
+func (s *TeacherService) GetAllTeachers() []repository.Teacher {
+	return s.repo.GetAllTeachers()
 }
 
-func (s *TeacherService) ListTeachers(ctx context.Context) ([]*model.Teacher, error) {
-	return s.repo.List(ctx)
+func (s *TeacherService) UpdateTeacher(t repository.Teacher) error {
+	return s.repo.UpdateTeacher(t)
 }
 
-func (s *TeacherService) GetTeacherByID(ctx context.Context, id int64) (*model.Teacher, error) {
-	return s.repo.GetByID(ctx, id)
+func (s *TeacherService) DeleteTeacher(id int64) error {
+	return s.repo.DeleteTeacher(id)
+}
+
+func (s *TeacherService) GetClassesForTeacher(teacherID int64) ([]string, error) {
+	return s.repo.GetClassesForTeacher(teacherID)
 }

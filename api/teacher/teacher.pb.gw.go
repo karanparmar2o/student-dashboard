@@ -206,6 +206,45 @@ func local_request_TeacherService_DeleteTeacher_0(ctx context.Context, marshaler
 	return msg, metadata, err
 }
 
+func request_TeacherService_GetClassesForTeacher_0(ctx context.Context, marshaler runtime.Marshaler, client TeacherServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq GetClassesForTeacherRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	val, ok := pathParams["teacher_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "teacher_id")
+	}
+	protoReq.TeacherId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "teacher_id", err)
+	}
+	msg, err := client.GetClassesForTeacher(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TeacherService_GetClassesForTeacher_0(ctx context.Context, marshaler runtime.Marshaler, server TeacherServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq GetClassesForTeacherRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["teacher_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "teacher_id")
+	}
+	protoReq.TeacherId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "teacher_id", err)
+	}
+	msg, err := server.GetClassesForTeacher(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 // RegisterTeacherServiceHandlerServer registers the http handlers for service TeacherService to "mux".
 // UnaryRPC     :call TeacherServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -311,6 +350,26 @@ func RegisterTeacherServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 		forward_TeacherService_DeleteTeacher_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_TeacherService_GetClassesForTeacher_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/teacher.TeacherService/GetClassesForTeacher", runtime.WithHTTPPathPattern("/v1/teachers/{teacher_id}/classes"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TeacherService_GetClassesForTeacher_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TeacherService_GetClassesForTeacher_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -437,21 +496,40 @@ func RegisterTeacherServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		}
 		forward_TeacherService_DeleteTeacher_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodGet, pattern_TeacherService_GetClassesForTeacher_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/teacher.TeacherService/GetClassesForTeacher", runtime.WithHTTPPathPattern("/v1/teachers/{teacher_id}/classes"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TeacherService_GetClassesForTeacher_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TeacherService_GetClassesForTeacher_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	return nil
 }
 
 var (
-	pattern_TeacherService_RegisterTeacher_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "teachers"}, ""))
-	pattern_TeacherService_GetTeacherList_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "teachers"}, ""))
-	pattern_TeacherService_GetTeacherById_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "teachers", "id"}, ""))
-	pattern_TeacherService_UpdateTeacher_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "teachers", "id"}, ""))
-	pattern_TeacherService_DeleteTeacher_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "teachers", "id"}, ""))
+	pattern_TeacherService_RegisterTeacher_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "teachers"}, ""))
+	pattern_TeacherService_GetTeacherList_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "teachers"}, ""))
+	pattern_TeacherService_GetTeacherById_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "teachers", "id"}, ""))
+	pattern_TeacherService_UpdateTeacher_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "teachers", "id"}, ""))
+	pattern_TeacherService_DeleteTeacher_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "teachers", "id"}, ""))
+	pattern_TeacherService_GetClassesForTeacher_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "teachers", "teacher_id", "classes"}, ""))
 )
 
 var (
-	forward_TeacherService_RegisterTeacher_0 = runtime.ForwardResponseMessage
-	forward_TeacherService_GetTeacherList_0  = runtime.ForwardResponseMessage
-	forward_TeacherService_GetTeacherById_0  = runtime.ForwardResponseMessage
-	forward_TeacherService_UpdateTeacher_0   = runtime.ForwardResponseMessage
-	forward_TeacherService_DeleteTeacher_0   = runtime.ForwardResponseMessage
+	forward_TeacherService_RegisterTeacher_0      = runtime.ForwardResponseMessage
+	forward_TeacherService_GetTeacherList_0       = runtime.ForwardResponseMessage
+	forward_TeacherService_GetTeacherById_0       = runtime.ForwardResponseMessage
+	forward_TeacherService_UpdateTeacher_0        = runtime.ForwardResponseMessage
+	forward_TeacherService_DeleteTeacher_0        = runtime.ForwardResponseMessage
+	forward_TeacherService_GetClassesForTeacher_0 = runtime.ForwardResponseMessage
 )

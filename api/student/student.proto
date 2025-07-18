@@ -6,49 +6,170 @@ package student;
 option go_package = "github.com/karanparmar2o/student-dashboard/api/student";
 
 service StudentService {
-    rpc RegisterStudent(RegisterStudentRequest) returns (RegisterStudentResponse) {
-        option (google.api.http) = {
-            post: "/v1/students"
-            body: "*"
-        };
-    }
+  rpc RegisterStudent(RegisterStudentRequest) returns (RegisterStudentResponse) {
+    option (google.api.http) = {
+      post: "/v1/students"
+      body: "*"
+    };
+  }
 
-    rpc GetStudentList(GetStudentListRequest) returns (GetStudentListResponse) {
-        option (google.api.http) = {
-            get: "/v1/students"
-        };
-    }
+  rpc GetStudentList(GetStudentListRequest) returns (GetStudentListResponse) {
+    option (google.api.http) = {
+      get: "/v1/students"
+    };
+  }
+
+  rpc GetStudentById(GetStudentByIdRequest) returns (GetStudentByIdResponse) {
+    option (google.api.http) = {
+      get: "/v1/students/{id}"
+    };
+  }
+
+  rpc UpdateStudent(UpdateStudentRequest) returns (UpdateStudentResponse) {
+    option (google.api.http) = {
+      put: "/v1/students/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteStudent(DeleteStudentRequest) returns (DeleteStudentResponse) {
+    option (google.api.http) = {
+      delete: "/v1/students/{id}"
+    };
+  }
+
+  rpc GetStudentsForClass(GetStudentsForClassRequest) returns (GetStudentsForClassResponse) {
+    option (google.api.http) = {
+      get: "/v1/students/class/{class_section}"
+    };
+  }
+
+  rpc AddMarks(AddMarksRequest) returns (AddMarksResponse) {
+    option (google.api.http) = {
+      post: "/v1/students/{student_id}/marks"
+      body: "*"
+    };
+  }
+
+  rpc UpdateMarks(UpdateMarksRequest) returns (UpdateMarksResponse) {
+    option (google.api.http) = {
+      put: "/v1/students/{student_id}/marks"
+      body: "*"
+    };
+  }
+
+  rpc GetMarksForStudent(GetMarksForStudentRequest) returns (GetMarksForStudentResponse) {
+    option (google.api.http) = {
+      get: "/v1/students/{student_id}/marks"
+    };
+  }
 }
 
 message RegisterStudentRequest {
-    string name = 1;
-    int32 age = 2;
-    string rollNumber = 3;
-    string class = 4;
-    string section = 5;
-    string parentName = 6;
-    string parentPhone = 7;
-    string admissionDate = 8;
-    string gender = 9;
-    string address = 10;
-}
-message RegisterStudentResponse {
-    bool success = 1;
-    string message = 2;
+  string name = 1;
+  int32 age = 2;
+  string rollNumber = 3;
+  string class = 4;
+  string section = 5;
+  string parentName = 6;
+  string parentPhone = 7;
+  string admissionDate = 8;
+  string gender = 9;
+  string address = 10;
 }
 
-message GetStudentListRequest {
-    string class = 1;
+message RegisterStudentResponse {
+  bool success = 1;
+  string message = 2;
+  int64 id = 3;
 }
+
+message GetStudentListRequest {}
 
 message GetStudentListResponse {
-    repeated Student students = 1;
+  repeated Student students = 1;
+}
+
+message GetStudentByIdRequest {
+  int64 id = 1;
+}
+
+message GetStudentByIdResponse {
+  Student student = 1;
+}
+
+message UpdateStudentRequest {
+  int64 id = 1;
+  string name = 2;
+  int32 age = 3;
+  string class = 4;
+  string section = 5;
+  string parentName = 6;
+  string parentPhone = 7;
+  string gender = 8;
+  string address = 9;
+}
+
+message UpdateStudentResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message DeleteStudentRequest {
+  int64 id = 1;
+}
+
+message DeleteStudentResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetStudentsForClassRequest {
+  string class_section = 1;
+}
+
+message GetStudentsForClassResponse {
+  repeated Student students = 1;
+}
+
+message AddMarksRequest {
+  int64 student_id = 1;
+  repeated SubjectMark marks = 2;
+}
+
+message AddMarksResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message UpdateMarksRequest {
+  int64 student_id = 1;
+  repeated SubjectMark marks = 2;
+}
+
+message UpdateMarksResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetMarksForStudentRequest {
+  int64 student_id = 1;
+}
+
+message GetMarksForStudentResponse {
+  repeated SubjectMark marks = 1;
+}
+
+message SubjectMark {
+  string subject_name = 1;
+  int32 mark = 2;
+  int64 given_by_teacher_id = 3;
 }
 
 message Student {
-    string name = 1;
-    int32 age = 2;
-    int32 class = 3;
-    string section = 4;
-    string roll_no = 5;
+  int64 id = 1;
+  string name = 2;
+  string gender = 3;
+  string profile = 4;
+  repeated SubjectMark marks = 5;
 }

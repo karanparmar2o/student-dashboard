@@ -26,7 +26,7 @@ type RegisterTeacherRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Gender        string                 `protobuf:"bytes,2,opt,name=gender,proto3" json:"gender,omitempty"`
-	Subjects      []string               `protobuf:"bytes,3,rep,name=subjects,proto3" json:"subjects,omitempty"`
+	Subject       []string               `protobuf:"bytes,3,rep,name=subject,proto3" json:"subject,omitempty"`
 	ClassSections []string               `protobuf:"bytes,4,rep,name=class_sections,json=classSections,proto3" json:"class_sections,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -76,9 +76,9 @@ func (x *RegisterTeacherRequest) GetGender() string {
 	return ""
 }
 
-func (x *RegisterTeacherRequest) GetSubjects() []string {
+func (x *RegisterTeacherRequest) GetSubject() []string {
 	if x != nil {
-		return x.Subjects
+		return x.Subject
 	}
 	return nil
 }
@@ -94,7 +94,7 @@ type RegisterTeacherResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	Id            int64                  `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"` // added id if you want to return created teacher ID
+	Id            int64                  `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -542,20 +542,108 @@ func (x *DeleteTeacherResponse) GetMessage() string {
 	return ""
 }
 
+type GetClassesForTeacherRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TeacherId     int64                  `protobuf:"varint,1,opt,name=teacher_id,json=teacherId,proto3" json:"teacher_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetClassesForTeacherRequest) Reset() {
+	*x = GetClassesForTeacherRequest{}
+	mi := &file_api_teacher_teacher_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetClassesForTeacherRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetClassesForTeacherRequest) ProtoMessage() {}
+
+func (x *GetClassesForTeacherRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_teacher_teacher_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetClassesForTeacherRequest.ProtoReflect.Descriptor instead.
+func (*GetClassesForTeacherRequest) Descriptor() ([]byte, []int) {
+	return file_api_teacher_teacher_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetClassesForTeacherRequest) GetTeacherId() int64 {
+	if x != nil {
+		return x.TeacherId
+	}
+	return 0
+}
+
+type GetClassesForTeacherResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ClassSections []string               `protobuf:"bytes,1,rep,name=class_sections,json=classSections,proto3" json:"class_sections,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetClassesForTeacherResponse) Reset() {
+	*x = GetClassesForTeacherResponse{}
+	mi := &file_api_teacher_teacher_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetClassesForTeacherResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetClassesForTeacherResponse) ProtoMessage() {}
+
+func (x *GetClassesForTeacherResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_teacher_teacher_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetClassesForTeacherResponse.ProtoReflect.Descriptor instead.
+func (*GetClassesForTeacherResponse) Descriptor() ([]byte, []int) {
+	return file_api_teacher_teacher_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetClassesForTeacherResponse) GetClassSections() []string {
+	if x != nil {
+		return x.ClassSections
+	}
+	return nil
+}
+
 type Teacher struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Gender        string                 `protobuf:"bytes,3,opt,name=gender,proto3" json:"gender,omitempty"`
 	Subjects      []string               `protobuf:"bytes,4,rep,name=subjects,proto3" json:"subjects,omitempty"`
-	ClassSections []string               `protobuf:"bytes,5,rep,name=class_sections,json=classSections,proto3" json:"class_sections,omitempty"` // e.g., ["7A", "8B"]
+	ClassSections []string               `protobuf:"bytes,5,rep,name=class_sections,json=classSections,proto3" json:"class_sections,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Teacher) Reset() {
 	*x = Teacher{}
-	mi := &file_api_teacher_teacher_proto_msgTypes[10]
+	mi := &file_api_teacher_teacher_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -567,7 +655,7 @@ func (x *Teacher) String() string {
 func (*Teacher) ProtoMessage() {}
 
 func (x *Teacher) ProtoReflect() protoreflect.Message {
-	mi := &file_api_teacher_teacher_proto_msgTypes[10]
+	mi := &file_api_teacher_teacher_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -580,7 +668,7 @@ func (x *Teacher) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Teacher.ProtoReflect.Descriptor instead.
 func (*Teacher) Descriptor() ([]byte, []int) {
-	return file_api_teacher_teacher_proto_rawDescGZIP(), []int{10}
+	return file_api_teacher_teacher_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *Teacher) GetId() int64 {
@@ -622,11 +710,11 @@ var File_api_teacher_teacher_proto protoreflect.FileDescriptor
 
 const file_api_teacher_teacher_proto_rawDesc = "" +
 	"\n" +
-	"\x19api/teacher/teacher.proto\x12\ateacher\x1a\x1cgoogle/api/annotations.proto\"\x87\x01\n" +
+	"\x19api/teacher/teacher.proto\x12\ateacher\x1a\x1cgoogle/api/annotations.proto\"\x85\x01\n" +
 	"\x16RegisterTeacherRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
-	"\x06gender\x18\x02 \x01(\tR\x06gender\x12\x1a\n" +
-	"\bsubjects\x18\x03 \x03(\tR\bsubjects\x12%\n" +
+	"\x06gender\x18\x02 \x01(\tR\x06gender\x12\x18\n" +
+	"\asubject\x18\x03 \x03(\tR\asubject\x12%\n" +
 	"\x0eclass_sections\x18\x04 \x03(\tR\rclassSections\"]\n" +
 	"\x17RegisterTeacherResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
@@ -652,19 +740,25 @@ const file_api_teacher_teacher_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"K\n" +
 	"\x15DeleteTeacherResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"\x88\x01\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"<\n" +
+	"\x1bGetClassesForTeacherRequest\x12\x1d\n" +
+	"\n" +
+	"teacher_id\x18\x01 \x01(\x03R\tteacherId\"E\n" +
+	"\x1cGetClassesForTeacherResponse\x12%\n" +
+	"\x0eclass_sections\x18\x01 \x03(\tR\rclassSections\"\x88\x01\n" +
 	"\aTeacher\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
 	"\x06gender\x18\x03 \x01(\tR\x06gender\x12\x1a\n" +
 	"\bsubjects\x18\x04 \x03(\tR\bsubjects\x12%\n" +
-	"\x0eclass_sections\x18\x05 \x03(\tR\rclassSections2\xaf\x04\n" +
+	"\x0eclass_sections\x18\x05 \x03(\tR\rclassSections2\xc0\x05\n" +
 	"\x0eTeacherService\x12m\n" +
 	"\x0fRegisterTeacher\x12\x1f.teacher.RegisterTeacherRequest\x1a .teacher.RegisterTeacherResponse\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/v1/teachers\x12g\n" +
 	"\x0eGetTeacherList\x12\x1e.teacher.GetTeacherListRequest\x1a\x1f.teacher.GetTeacherListResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/teachers\x12l\n" +
 	"\x0eGetTeacherById\x12\x1e.teacher.GetTeacherByIdRequest\x1a\x1f.teacher.GetTeacherByIdResponse\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/teachers/{id}\x12l\n" +
 	"\rUpdateTeacher\x12\x1d.teacher.UpdateTeacherRequest\x1a\x1e.teacher.UpdateTeacherResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\x1a\x11/v1/teachers/{id}\x12i\n" +
-	"\rDeleteTeacher\x12\x1d.teacher.DeleteTeacherRequest\x1a\x1e.teacher.DeleteTeacherResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/teachers/{id}B8Z6github.com/karanparmar2o/student-dashboard/api/teacherb\x06proto3"
+	"\rDeleteTeacher\x12\x1d.teacher.DeleteTeacherRequest\x1a\x1e.teacher.DeleteTeacherResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/teachers/{id}\x12\x8e\x01\n" +
+	"\x14GetClassesForTeacher\x12$.teacher.GetClassesForTeacherRequest\x1a%.teacher.GetClassesForTeacherResponse\")\x82\xd3\xe4\x93\x02#\x12!/v1/teachers/{teacher_id}/classesB8Z6github.com/karanparmar2o/student-dashboard/api/teacherb\x06proto3"
 
 var (
 	file_api_teacher_teacher_proto_rawDescOnce sync.Once
@@ -678,35 +772,39 @@ func file_api_teacher_teacher_proto_rawDescGZIP() []byte {
 	return file_api_teacher_teacher_proto_rawDescData
 }
 
-var file_api_teacher_teacher_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_api_teacher_teacher_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_api_teacher_teacher_proto_goTypes = []any{
-	(*RegisterTeacherRequest)(nil),  // 0: teacher.RegisterTeacherRequest
-	(*RegisterTeacherResponse)(nil), // 1: teacher.RegisterTeacherResponse
-	(*GetTeacherListRequest)(nil),   // 2: teacher.GetTeacherListRequest
-	(*GetTeacherListResponse)(nil),  // 3: teacher.GetTeacherListResponse
-	(*GetTeacherByIdRequest)(nil),   // 4: teacher.GetTeacherByIdRequest
-	(*GetTeacherByIdResponse)(nil),  // 5: teacher.GetTeacherByIdResponse
-	(*UpdateTeacherRequest)(nil),    // 6: teacher.UpdateTeacherRequest
-	(*UpdateTeacherResponse)(nil),   // 7: teacher.UpdateTeacherResponse
-	(*DeleteTeacherRequest)(nil),    // 8: teacher.DeleteTeacherRequest
-	(*DeleteTeacherResponse)(nil),   // 9: teacher.DeleteTeacherResponse
-	(*Teacher)(nil),                 // 10: teacher.Teacher
+	(*RegisterTeacherRequest)(nil),       // 0: teacher.RegisterTeacherRequest
+	(*RegisterTeacherResponse)(nil),      // 1: teacher.RegisterTeacherResponse
+	(*GetTeacherListRequest)(nil),        // 2: teacher.GetTeacherListRequest
+	(*GetTeacherListResponse)(nil),       // 3: teacher.GetTeacherListResponse
+	(*GetTeacherByIdRequest)(nil),        // 4: teacher.GetTeacherByIdRequest
+	(*GetTeacherByIdResponse)(nil),       // 5: teacher.GetTeacherByIdResponse
+	(*UpdateTeacherRequest)(nil),         // 6: teacher.UpdateTeacherRequest
+	(*UpdateTeacherResponse)(nil),        // 7: teacher.UpdateTeacherResponse
+	(*DeleteTeacherRequest)(nil),         // 8: teacher.DeleteTeacherRequest
+	(*DeleteTeacherResponse)(nil),        // 9: teacher.DeleteTeacherResponse
+	(*GetClassesForTeacherRequest)(nil),  // 10: teacher.GetClassesForTeacherRequest
+	(*GetClassesForTeacherResponse)(nil), // 11: teacher.GetClassesForTeacherResponse
+	(*Teacher)(nil),                      // 12: teacher.Teacher
 }
 var file_api_teacher_teacher_proto_depIdxs = []int32{
-	10, // 0: teacher.GetTeacherListResponse.teachers:type_name -> teacher.Teacher
-	10, // 1: teacher.GetTeacherByIdResponse.teacher:type_name -> teacher.Teacher
+	12, // 0: teacher.GetTeacherListResponse.teachers:type_name -> teacher.Teacher
+	12, // 1: teacher.GetTeacherByIdResponse.teacher:type_name -> teacher.Teacher
 	0,  // 2: teacher.TeacherService.RegisterTeacher:input_type -> teacher.RegisterTeacherRequest
 	2,  // 3: teacher.TeacherService.GetTeacherList:input_type -> teacher.GetTeacherListRequest
 	4,  // 4: teacher.TeacherService.GetTeacherById:input_type -> teacher.GetTeacherByIdRequest
 	6,  // 5: teacher.TeacherService.UpdateTeacher:input_type -> teacher.UpdateTeacherRequest
 	8,  // 6: teacher.TeacherService.DeleteTeacher:input_type -> teacher.DeleteTeacherRequest
-	1,  // 7: teacher.TeacherService.RegisterTeacher:output_type -> teacher.RegisterTeacherResponse
-	3,  // 8: teacher.TeacherService.GetTeacherList:output_type -> teacher.GetTeacherListResponse
-	5,  // 9: teacher.TeacherService.GetTeacherById:output_type -> teacher.GetTeacherByIdResponse
-	7,  // 10: teacher.TeacherService.UpdateTeacher:output_type -> teacher.UpdateTeacherResponse
-	9,  // 11: teacher.TeacherService.DeleteTeacher:output_type -> teacher.DeleteTeacherResponse
-	7,  // [7:12] is the sub-list for method output_type
-	2,  // [2:7] is the sub-list for method input_type
+	10, // 7: teacher.TeacherService.GetClassesForTeacher:input_type -> teacher.GetClassesForTeacherRequest
+	1,  // 8: teacher.TeacherService.RegisterTeacher:output_type -> teacher.RegisterTeacherResponse
+	3,  // 9: teacher.TeacherService.GetTeacherList:output_type -> teacher.GetTeacherListResponse
+	5,  // 10: teacher.TeacherService.GetTeacherById:output_type -> teacher.GetTeacherByIdResponse
+	7,  // 11: teacher.TeacherService.UpdateTeacher:output_type -> teacher.UpdateTeacherResponse
+	9,  // 12: teacher.TeacherService.DeleteTeacher:output_type -> teacher.DeleteTeacherResponse
+	11, // 13: teacher.TeacherService.GetClassesForTeacher:output_type -> teacher.GetClassesForTeacherResponse
+	8,  // [8:14] is the sub-list for method output_type
+	2,  // [2:8] is the sub-list for method input_type
 	2,  // [2:2] is the sub-list for extension type_name
 	2,  // [2:2] is the sub-list for extension extendee
 	0,  // [0:2] is the sub-list for field type_name
@@ -723,7 +821,7 @@ func file_api_teacher_teacher_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_teacher_teacher_proto_rawDesc), len(file_api_teacher_teacher_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
